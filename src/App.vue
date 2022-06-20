@@ -3,8 +3,9 @@
     <nav>
       <Button
           class="p-button-text mr-2"
-          v-for="btn in getActiveButtons()"
+          v-for="(btn, index) in getActiveButtons()"
           @click="goToPage(btn.routerName)"
+          :key="index"
           :label="btn.label"
           :disabled="btn.disabled"
       />

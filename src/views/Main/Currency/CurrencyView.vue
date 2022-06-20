@@ -1,6 +1,6 @@
 <template>
   <div class="currency-view">
-    <Carousel :value="currencies" :circular="true" :numVisible="10">
+    <Carousel :value="currencies" :circular="true" :numVisible="10" v-if="!loading">
       <template #header>
         <h5>Currency</h5>
       </template>
@@ -11,13 +11,13 @@
           </div>
       </template>
     </Carousel>
+    <progress-spinner v-if="loading"></progress-spinner>
   </div>
 </template>
 
 <script lang="ts">
 
 import {Component, Vue} from 'vue-property-decorator';
-import axios from 'axios';
 import {HttpClass} from '@/plugins/http.plugin';
 
 
@@ -28,9 +28,8 @@ export default class CurrencyView extends Vue {
   currencies: any[] = [];
 
   mounted() {
-    axios.get('https://api.exchangerate.host/symbols')
-        .then((response) => this.currencies = Object.values(response.data.symbols))
-        .then(() => console.log(this.currencies))
+    this.$http.get('https://api.exchangerate.host/symbols')
+        .then((data) => this.currencies = Object.values(data.symbols))
         .catch(error => HttpClass.displayErrorHandler(error, this.$store))
         .finally(() => this.loading = false)
   }

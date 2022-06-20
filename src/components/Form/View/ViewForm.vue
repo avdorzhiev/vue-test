@@ -1,6 +1,6 @@
 <template>
   <div class="view-form">
-    <div v-for="key in keys">
+    <div v-for="(key, index) in keys" :key="index">
       <div class="view-form__label">{{key}}</div>
       <div class="view-form__value">{{data[key]}}</div>
     </div>

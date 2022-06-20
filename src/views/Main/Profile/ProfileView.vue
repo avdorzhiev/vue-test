@@ -1,9 +1,9 @@
 <template>
-  <div class="profile-view" v-if="!loading">
-    <div class="profile-view__avatar">
+  <div class="profile-view">
+    <div class="profile-view__avatar" v-if="!loading">
       <ImagePreview :src="userData.avatar" alt="Image" width="250"/>
     </div>
-    <div class="profile-view__info">
+    <div class="profile-view__info" v-if="!loading">
 
       <Card>
         <template #header>Info:</template>
@@ -77,10 +77,10 @@ export default class ProfileView extends Vue {
 
   mounted() {
     // Init User
-    axios.get<any>('https://randomuser.me/api/')
-        .then((response: AxiosResponse<UserType>) => {
-          const info = response.data.results[0];
-          console.log(info);
+
+    this.$http.get<UserType>('https://randomuser.me/api/')
+        .then((data: UserType) => {
+          const info = data.results[0];
           this.userData = {
             firstName: info.name.first,
             lastName: info.name.last,

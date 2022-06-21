@@ -93,7 +93,7 @@ import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
 
 // Styles
-import 'primevue/resources/themes/saga-blue/theme.css';
+import 'primevue/resources/themes/md-dark-indigo/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 

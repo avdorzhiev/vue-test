@@ -1,9 +1,11 @@
-import {IErrorDialogGetters, IErrorDialogState, IState} from '@/store/models';
-import {Module, ModuleTree} from 'vuex';
+import {IState} from '@/store/models/store.state.models';
+import {Module} from 'vuex';
 import {AxiosError} from 'axios';
+import {IErrorDialogState} from '@/store/models/ErrorDialog.models';
 
 
 const moduleErrorDialog: Module<IErrorDialogState, IState> = {
+    namespaced: true,
     state: {
         display: false,
     },

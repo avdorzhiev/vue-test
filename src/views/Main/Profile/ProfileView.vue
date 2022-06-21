@@ -1,8 +1,6 @@
 <template>
   <div class="profile-view">
-    <div class="profile-view__avatar" v-if="!loading">
-      <ImagePreview :src="userData.avatar" alt="Image" width="250"/>
-    </div>
+    <MyImage :src="userData.avatar" alt="Image" :width="300" :height="300" v-if="!loading"></MyImage>
     <div class="profile-view__info" v-if="!loading">
 
       <Card>
@@ -43,9 +41,9 @@
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import axios, {AxiosResponse} from 'axios';
 import {HttpClass} from '@/plugins/http.plugin';
-import {UserType} from '@/views/Main/Profile/types/userType';
+import {UserType} from '@/store/models/types/User/userType';
+import MyImage from '@/components/Image/Image.vue';
 
 type TDob = {
   day: string,
@@ -62,7 +60,11 @@ type TUserInfo = {
   avatar: string;
 }
 
-@Component
+@Component({
+  components: {
+    MyImage,
+  }
+})
 export default class ProfileView extends Vue {
 
   loading: boolean = true;
@@ -76,9 +78,7 @@ export default class ProfileView extends Vue {
   };
 
   mounted() {
-    // Init User
-
-    this.$http.get<UserType>('https://randomuser.me/api/')
+    this.$store.dispatch('user/get')
         .then((data: UserType) => {
           const info = data.results[0];
           this.userData = {
@@ -94,35 +94,37 @@ export default class ProfileView extends Vue {
         .finally(() => this.loading = false)
   }
 
+
   get fullName(): string {
-    console.log(this.userData.firstName + ' ' + this.userData.lastName);
     return this.userData.firstName + ' ' + this.userData.lastName
   }
 
   get dob(): string {
     const [year, month, day]: number[] = (this.userData.dob.split('T'))[0].split('-').map(v => Number(v));
     const date = new Date(year, month, day)
-    return date.toLocaleString('en', {day: '2-digit',month: 'long', year: 'numeric'})
+    return date.toLocaleString('en', {day: '2-digit', month: 'long', year: 'numeric'})
   }
 }
 </script>
 
 <style lang="less">
-  .profile-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    .p-card {
-      margin-top: 20px;
+  .p-card {
+    margin-top: 20px;
 
-      table {
-        text-align: left;
-        .label {
-          font-weight: bold;
-          padding-right: 20px;
-        }
+    table {
+      text-align: left;
+
+      .label {
+        font-weight: bold;
+        padding-right: 20px;
       }
     }
   }
+}
 </style>

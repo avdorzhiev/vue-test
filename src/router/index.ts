@@ -8,6 +8,7 @@ import {commonNameRoutesEnum, loggedNameRoutesEnum, notLoggedNameRoutesEnum} fro
 import ProfileView from '@/views/Main/Profile/ProfileView.vue';
 import {AuthService} from '@/plugins/auth.plugin';
 import CurrencyView from '@/views/Main/Currency/CurrencyView.vue';
+import RickAndMortyView from '@/views/Main/RickAndMorty/RickAndMortyView.vue';
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ const routes: Array<myRouteConfig> = [
         name: loggedNameRoutesEnum.currency,
         component: CurrencyView
       },
+      {
+        path: 'rickandmorty',
+        name: loggedNameRoutesEnum.rickAndMorty,
+        component: RickAndMortyView
+      },
     ]
   },
   {
@@ -76,6 +82,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name === from.name || to.path === from.path) {
+    next(false)
+  } else {
+    next()
+  }
 })
 
 export default router

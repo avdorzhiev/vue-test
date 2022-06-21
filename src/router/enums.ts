@@ -12,5 +12,6 @@ export enum loggedNameRoutesEnum {
     main = 'main',
     profile = 'profile',
     currency = 'currency',
+    rickAndMorty = 'rickAndMorty',
 }
 

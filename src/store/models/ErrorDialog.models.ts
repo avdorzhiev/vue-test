@@ -10,8 +10,3 @@ export interface IErrorDialogGetters {
     errorCode(): string;
     errorMessage(): string;
 }
-
-
-export interface IState {
-    // errorDialog?: IErrorDialog
-}

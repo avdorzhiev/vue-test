@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav>
+    <nav v-if="!isLogin()">
       <Button
           class="p-button-text mr-2"
           v-for="(btn, index) in getActiveButtons()"
@@ -10,6 +10,12 @@
           :disabled="btn.disabled"
       />
     </nav>
+    <div v-if="isLogin()">
+      <Button @click="visibleMenu=true" v-if="!visibleMenu" class="pi p-button-text pi-arrow-right sidebar-button"></Button>
+      <Sidebar :visible.sync="visibleMenu" :baseZIndex="1000" position="left">
+        <TieredMenu :model="menus" />
+      </Sidebar>
+    </div>
     <transition name="fade" mode="out-in">
       <router-view/>
     </transition>
@@ -20,10 +26,11 @@
 
 <script lang="ts">
 
-import {Component, Vue} from "vue-property-decorator";
-import RegisterButton from "@/components/Login/RegisterButton.vue";
-import {commonNameRoutesEnum, loggedNameRoutesEnum, notLoggedNameRoutesEnum} from "@/router/enums";
+import {Component, Vue} from 'vue-property-decorator';
+import {commonNameRoutesEnum, loggedNameRoutesEnum, notLoggedNameRoutesEnum} from '@/router/enums';
 import MyDialogs from '@/components/MyDialogs/MyDialogs.vue';
+import MyImage from '@/components/Image/Image.vue';
+import ViewForm from '@/components/Form/ViewForm.vue';
 
 
 interface IButton {
@@ -42,6 +49,72 @@ interface IButton {
   }
 })
 export default class AppView extends Vue {
+
+  visibleMenu: boolean = false;
+
+  get menus() {
+    return [
+      {
+        label: 'Profile',
+        icon: 'pi pi-refresh',
+        command: () => {
+          if (this.$route.name !== loggedNameRoutesEnum.profile) {
+            this.$router.push({name: loggedNameRoutesEnum.profile});
+          }
+        }
+      },
+      {
+        label: 'Currency',
+        icon: 'pi pi-money-bill',
+        command: () => {
+          if (this.$route.name !== loggedNameRoutesEnum.currency) {
+            this.$router.push({name: loggedNameRoutesEnum.currency});
+          }
+        }
+      },
+      {
+        label: 'Rick And Morty',
+        icon: 'pi pi-table',
+        command: () => {
+          if (this.$route.name !== loggedNameRoutesEnum.rickAndMorty) {
+            this.$router.push({name: loggedNameRoutesEnum.rickAndMorty});
+          }
+        }
+      },
+      {
+        separator: true
+      },
+      {
+        label: 'Home',
+        icon: 'pi pi-home',
+        command: () => {
+          if (this.$route.name !== commonNameRoutesEnum.home) {
+            this.$router.push({name: commonNameRoutesEnum.home});
+          }
+        }
+      },
+      {
+        label: 'About',
+        icon: 'pi pi-info',
+        command: () => {
+          if (this.$route.name !== commonNameRoutesEnum.about) {
+            this.$router.push({name: commonNameRoutesEnum.about});
+          }
+        }
+      },
+      {
+        separator: true
+      },
+      {
+        label: 'Logout',
+        icon: 'pi pi-power-off',
+        command: () => {
+          this.$auth.logout();
+          this.$router.push({name: notLoggedNameRoutesEnum.login});
+        }
+      }
+    ]
+  }
 
   goToPage(routerName: string) {
     if (this.$route.name !== routerName) {
@@ -76,7 +149,10 @@ export default class AppView extends Vue {
         active: this.$auth.isLogin(),
       },
     ]
+  }
 
+  isLogin(): boolean {
+    return this.$auth.isLogin();
   }
 
 }
@@ -89,6 +165,7 @@ body {
   max-width: 100%;
   height: auto;
   width: auto;
+  background-color: #1f1e1e;
 }
 
 #app {
@@ -96,8 +173,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
   height: 100%;
+  position: relative;
+
+  .sidebar-button {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 100;
+  }
 }
 
 nav {
@@ -105,10 +191,10 @@ nav {
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    //color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      //color: #42b983;
     }
   }
 }

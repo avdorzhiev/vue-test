@@ -3,7 +3,7 @@
     <form @submit.prevent="submit" autocomplete="off">
       <div class="item">
         <div class="p-float-label">
-          <InputText id="username" type="text" v-model="username" v-on:keyup.enter="submit"/>
+          <InputText id="username" type="text" v-model="username" @keyup.enter="submit"/>
           <label for="username">Username</label>
         </div>
       </div>
@@ -19,11 +19,13 @@
         <Button label="Forgot Password" class="p-button-text"/>
         <!--   Forgot Password Dialog     -->
 
-        <registerButton :users="users" v-on="registerFormListeners"></registerButton>
+        <Button label="Registration" class="p-button-text" @click="openRegisterForm()"/>
+
+        <registerButton @register-new-user="registerFormListeners" :display.sync="display" :users="users" v-on="registerFormListeners"></registerButton>
       </div>
 
 
-      <Button type="submit" label="Login" icon="pi-sign-in" icon-pos="right" :disabled="!canLogin()"/>
+      <Button type="submit" label="Login" icon="pi pi-sign-in" icon-pos="right" :disabled="!canLogin()"/>
     </form>
 
     <Toast position="bottom-center"/>
@@ -64,6 +66,16 @@ const USERS: IUser[] = [
   }
 })
 export default class LoginView extends Vue {
+
+  displayProp = false;
+
+  get display(): boolean {
+    return this.displayProp
+  }
+
+  set display(event: boolean) {
+    this.displayProp = event;
+  }
 
   username: string = '';
   password: string = '';
@@ -111,6 +123,11 @@ export default class LoginView extends Vue {
     }
     return 0;
   }
+
+  openRegisterForm() {
+    this.display = true;
+  }
+
 
 }
 </script>

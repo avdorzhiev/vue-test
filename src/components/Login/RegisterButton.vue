@@ -1,7 +1,6 @@
 <template>
   <div>
-    <Button label="Registration" class="p-button-text" @click="openRegisterForm()"/>
-    <Dialog :visible.sync="display"
+    <Dialog :visible="displayFlag"
             :modal="true"
             :dismissableMask="true"
             :container-style="{width: '400px'}"
@@ -57,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Prop, PropSync, Vue} from 'vue-property-decorator';
 import {IUser, RegisterFormEventEnum} from '@/views/Login/view.login.models';
 
 const RegisterButtonProps = Vue.extend({
@@ -76,43 +75,25 @@ const RegisterButtonProps = Vue.extend({
 
 @Component
 export default class RegisterButton extends RegisterButtonProps {
+  @PropSync('display') displayFlag!: boolean
 
   username: string = '';
   password: string = '';
   password2: string = '';
-  display: boolean = false;
+  //display: boolean = false;
   isValidUsername: boolean = true;
   isValidPassword: boolean = true;
   isValidPassword2: boolean = true;
 
-  openRegisterForm() {
-    this.display = true;
-  }
 
   closeRegisterForm() {
     this.username = '';
     this.password = '';
-    this.display = false;
-  }
-
-  onFocusOutUsername() {
-    console.log('onFocusOutUsername')
-    this.isValidUsername = this.checkUsername();
-  }
-
-  onFocusOutPassword() {
-    console.log('onFocusOutPassword')
-    this.isValidPassword = this.checkPassword();
-  }
-
-  onFocusOutPassword2() {
-    console.log('onFocusOutPassword2')
-    this.isValidPassword2 = this.checkPassword2();
+    this.displayFlag = false;
   }
 
   registerUser() {
-    console.log('hehe');
-    this.$emit(RegisterFormEventEnum['register-new-user'], {
+    this.$emit('register-new-user', {
       username: this.username,
       password: this.password,
     })
@@ -121,7 +102,6 @@ export default class RegisterButton extends RegisterButtonProps {
 
   checkUsername(): boolean {
     return this.users.every((user: IUser) => {
-      // console.log(user.username === this.username, user.username, this.username)
       return user.username !== this.username
     });
   }

@@ -3,6 +3,7 @@ import Vue from 'vue'
 import './primeVue';
 
 import App from './App.vue'
+import './filters';
 import router from './router'
 import store from './store'
 import LoginPlugin from '@/plugins/auth.plugin';

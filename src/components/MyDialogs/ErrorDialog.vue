@@ -11,28 +11,47 @@
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import {mapState} from 'vuex';
+import {mapGetters, mapMutations, mapState} from 'vuex';
+import {AxiosError} from 'axios';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('errorDialog', {
+      error: 'displayErrorDialog',
+      errorCode: 'errorCode',
+      errorMessage: 'errorMessage',
+    }),
+  },
+  methods: {
+    ...mapMutations('errorDialog',[
+      'displayErrorDialog',
+      'setError'
+    ])
+  }
+})
 export default class ErrorDialog extends Vue {
+
+  error!: boolean;
+  errorCode!: number;
+  errorMessage!: string;
+  displayErrorDialog!: (value: boolean) => void;
+  setError!: (error: AxiosError | null) => void;
 
   get template(): string {
     return `<div class="error-dialog__content">
-                <h3>Code: ${this.$store.getters.errorCode}</h3>
-                <pre>${this.$store.getters.errorMessage}</pre>
+                <h3>Code: ${this.errorCode}</h3>
+                <pre>${this.errorMessage}</pre>
             </div>`;
   }
 
   get display(): boolean {
-    console.log(this);
-    console.log(this.$store);
-    return this.$store.getters.displayErrorDialog;
+    return this.error;
   }
 
   set display(value: boolean) {
-    this.$store.commit('displayErrorDialog', value);
+    this.displayErrorDialog(value);
     if (!value) {
-      this.$store.commit('setError', null)
+      this.setError(null)
     }
   }
 }

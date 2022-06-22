@@ -24,9 +24,9 @@ const moduleSimpleDialog: Module<ISimpleDialogState, IState> = {
                     html += `<tr class="item">
                                 <td class="label">${key} :</td>
                                 <td class="value">${value}</td>
-                            </tr>`
-                })
-                return html + '</table>'
+                            </tr>`;
+                });
+                return html + '</table>';
             }
 
             return content;
@@ -38,7 +38,7 @@ const moduleSimpleDialog: Module<ISimpleDialogState, IState> = {
         header: (state) => {
             const header = state.header;
             if (!header) return '';
-            if (typeof header === 'object') return `<h5>${header.label}</h5>`
+            if (typeof header === 'object') return `<h5>${header.label}</h5>`;
             return header;
         },
     },
@@ -56,6 +56,6 @@ const moduleSimpleDialog: Module<ISimpleDialogState, IState> = {
             state.header = value;
         },
     }
-}
+};
 
 export default moduleSimpleDialog;

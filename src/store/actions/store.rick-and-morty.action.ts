@@ -10,7 +10,7 @@ import {HttpClass} from '@/plugins/http.plugin';
 
 export const StoreRickAndMortyAction: ActionTree<void, IState> = {
     all({}, allRequestConfig: IRickAndMortyAllRequestConfig): Promise<RickAndMortyResponse> {
-        const url = HttpClass.prepareUrl('https://rickandmortyapi.com/api/character', allRequestConfig.filters, {page: allRequestConfig.page})
+        const url = HttpClass.prepareUrl('https://rickandmortyapi.com/api/character', allRequestConfig.filters, {page: allRequestConfig.page});
         return axios.get<RickAndMortyResponse>(url)
             .then(response => response.data);
     },
@@ -18,4 +18,4 @@ export const StoreRickAndMortyAction: ActionTree<void, IState> = {
         return axios.get<RickAndMortyCharacter>('https://rickandmortyapi.com/api/character/' + id)
             .then(response => response.data);
     }
-}
+};

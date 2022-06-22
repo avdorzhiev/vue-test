@@ -42,7 +42,7 @@ interface IButton {
 
 @Component({
   beforeCreate() {
-    this.$store.commit('initialiseStore')
+    this.$store.commit('initialiseStore');
   },
   components: {
     MyDialogs,
@@ -50,7 +50,7 @@ interface IButton {
 })
 export default class AppView extends Vue {
 
-  visibleMenu: boolean = false;
+  visibleMenu = false;
 
   get menus() {
     return [
@@ -113,7 +113,7 @@ export default class AppView extends Vue {
           this.$router.push({name: notLoggedNameRoutesEnum.login});
         }
       }
-    ]
+    ];
   }
 
   goToPage(routerName: string) {
@@ -148,7 +148,7 @@ export default class AppView extends Vue {
         label: 'Main',
         active: this.$auth.isLogin(),
       },
-    ]
+    ];
   }
 
   isLogin(): boolean {

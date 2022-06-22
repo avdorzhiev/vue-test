@@ -13,7 +13,7 @@ import {commonNameRoutesEnum, loggedNameRoutesEnum, notLoggedNameRoutesEnum} fro
 @Component
 export default class MainView extends Vue {
 
-  visibleMenu: boolean = false;
+  visibleMenu = false;
 
   get menus() {
     return [
@@ -66,7 +66,7 @@ export default class MainView extends Vue {
           this.$router.push({name: notLoggedNameRoutesEnum.login});
         }
       }
-    ]
+    ];
   }
 }
 </script>

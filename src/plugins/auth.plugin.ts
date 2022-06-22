@@ -25,9 +25,9 @@ const AuthPlugin: PluginObject<void> = {
             logout: function() {
                 return AuthService.logout();
             },
-        }
+        };
     }
-}
+};
 
 export class AuthService {
     static userId(): number {

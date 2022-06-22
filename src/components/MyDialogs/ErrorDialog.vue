@@ -51,7 +51,7 @@ export default class ErrorDialog extends Vue {
   set display(value: boolean) {
     this.displayErrorDialog(value);
     if (!value) {
-      this.setError(null)
+      this.setError(null);
     }
   }
 }

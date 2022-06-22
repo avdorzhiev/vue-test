@@ -134,9 +134,9 @@ export default class RickAndMortyView extends Vue {
   setSimpleButtons!: (value?: {label: string, action: () => void}[]) => void;
   setSimpleHeader!: (value?: string | {label: string}) => void;
 
-  loading: boolean = true;
-  totalRecords: number = 0;
-  selectPage: number = 0;
+  loading = true;
+  totalRecords = 0;
+  selectPage = 0;
   characters: RickAndMortyCharacter[] = [];
   filters: IFilter = {
     name: '',
@@ -145,7 +145,7 @@ export default class RickAndMortyView extends Vue {
 
   readonly filtersChange = this.debounce(() => {
     this.selectPage = 1;
-    this.reload(true)
+    this.reload(true);
   })
 
   readonly statuses = [
@@ -192,7 +192,7 @@ export default class RickAndMortyView extends Vue {
     if (this.filters.gender) {
       config.filters!.gender = this.filters.gender;
     }
-    return config
+    return config;
   }
 
   onPage($event: any) {
@@ -210,7 +210,7 @@ export default class RickAndMortyView extends Vue {
       'Location': data.location.name,
       'Origin': data.origin.name,
       'Created': moment(data.created).format('YYYY-MM-DD HH:MM:SS'),
-    }
+    };
     this.setSimpleContent(
         `<img src="${data.image}" alt="Image of the character"/>
               <div class="view_form" style="margin-top: 20px">
@@ -225,7 +225,7 @@ export default class RickAndMortyView extends Vue {
     this.setSimpleDisplayDialog(true);
   }
 
-  private reload(forFilters: boolean = false): void {
+  private reload(forFilters = false): void {
     this.loading = true;
     setTimeout(() => {
       this.getAllCharacters({...this.allRequestConfig, page: forFilters ? 0 : this.selectPage})
@@ -234,10 +234,10 @@ export default class RickAndMortyView extends Vue {
             this.totalRecords = data.info.count;
           })
           .catch((error: AxiosError) => {
-            error.response?.status === 404 ? this.characters = [] : HttpClass.displayErrorHandler(error, this.$store)
+            error.response?.status === 404 ? this.characters = [] : HttpClass.displayErrorHandler(error, this.$store);
           })
           .finally(() => this.loading = false);
-    }, 5000)
+    }, 5000);
   }
 
 

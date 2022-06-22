@@ -67,23 +67,23 @@ const RegisterButtonProps = Vue.extend({
       validator(value: IUser[]): boolean {
         return value.every((user: IUser, userIndex: number, arr: IUser[]) =>
             arr.findIndex((item, i) => i !== userIndex && item.username === user.username) !== userIndex
-        )
+        );
       }
     },
   },
-})
+});
 
 @Component
 export default class RegisterButton extends RegisterButtonProps {
   @PropSync('display') displayFlag!: boolean
 
-  username: string = '';
-  password: string = '';
-  password2: string = '';
+  username = '';
+  password = '';
+  password2 = '';
   //display: boolean = false;
-  isValidUsername: boolean = true;
-  isValidPassword: boolean = true;
-  isValidPassword2: boolean = true;
+  isValidUsername = true;
+  isValidPassword = true;
+  isValidPassword2 = true;
 
 
   closeRegisterForm() {
@@ -96,13 +96,13 @@ export default class RegisterButton extends RegisterButtonProps {
     this.$emit('register-new-user', {
       username: this.username,
       password: this.password,
-    })
+    });
     this.closeRegisterForm();
   }
 
   checkUsername(): boolean {
     return this.users.every((user: IUser) => {
-      return user.username !== this.username
+      return user.username !== this.username;
     });
   }
 

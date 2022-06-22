@@ -28,13 +28,13 @@ const HttpPlugin: PluginObject<Axios> = {
             Vue.prototype.$http = {
                 get<T = any, O = any>(url: string, config?: AxiosRequestConfig<O>): Promise<T> {
                     return axios.get(url, config)
-                        .then((response: AxiosResponse<T>) => response.data)
+                        .then((response: AxiosResponse<T>) => response.data);
                 },
                 prepareFilter(filters: IHttpFilters, arrayHandler?: (arr: any[]) => string): string {
-                    return HttpClass.prepareFilter(filters, arrayHandler)
+                    return HttpClass.prepareFilter(filters, arrayHandler);
                 },
                 prepareCollectionParams(collectionParams: IHttpCollectionParams, paginationName?: { page: string, size: string }): string {
-                    return HttpClass.prepareCollectionParams(collectionParams, paginationName)
+                    return HttpClass.prepareCollectionParams(collectionParams, paginationName);
                 },
                 prepareUrl(
                     url: string,
@@ -45,16 +45,16 @@ const HttpPlugin: PluginObject<Axios> = {
                 ): string {
                     return HttpClass.prepareUrl(url, filters, collectionParams, arrayHandlerForFilter, paginationName);
                 }
-            }
-        } else console.error('HttpPlugin:::install: Can you please add Axios in Vue.use() as options')
+            };
+        } else console.error('HttpPlugin:::install: Can you please add Axios in Vue.use() as options');
     }
-}
+};
 
 
 export class HttpClass {
 
     static displayErrorHandler(error: AxiosError, store: Store<any>) {
-        store.commit('errorDialog/setError', error)
+        store.commit('errorDialog/setError', error);
         store.commit('errorDialog/displayErrorDialog', true);
     }
 
@@ -66,7 +66,7 @@ export class HttpClass {
                 if (Array.isArray(value)) {
                     return 'key=' + (arrayHandler ? arrayHandler(value) : value.join(','));
                 }
-                return `${key}=${filters[key]}`
+                return `${key}=${filters[key]}`;
             }).join('&');
     }
 

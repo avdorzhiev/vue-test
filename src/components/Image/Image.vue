@@ -31,17 +31,17 @@ const ImageProps = Vue.extend({
       default: null,
     },
   }
-})
+});
 
 @Component
 export default class MyImage extends Vue {
 
-  loading: boolean = true;
+  loading = true;
   @Prop({type: Number, required: true,default: 128,}) width!: number;
   @Prop({type: Number, required: true,default: 128,}) height!: number;
 
   loaded() {
-    setTimeout(() => this.loading = false, 3000)
+    setTimeout(() => this.loading = false, 3000);
   }
 }
 

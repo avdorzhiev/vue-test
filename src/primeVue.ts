@@ -2,7 +2,7 @@ import Vue from 'vue';
 import PrimeVue from 'primevue/config';
 
 // Components
-import AutoComplete from "primevue/autocomplete/AutoComplete";
+import AutoComplete from 'primevue/autocomplete/AutoComplete';
 import Accordion from 'primevue/accordion/Accordion';
 import AccordionTab from 'primevue/accordiontab/AccordionTab';
 import Avatar from 'primevue/avatar/Avatar';

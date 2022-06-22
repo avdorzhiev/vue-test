@@ -24,14 +24,14 @@ import {HttpClass} from '@/plugins/http.plugin';
 @Component
 export default class CurrencyView extends Vue {
 
-  loading: boolean = true;
+  loading = true;
   currencies: any[] = [];
 
   mounted() {
     this.$http.get('https://api.exchangerate.host/symbols')
         .then((data) => this.currencies = Object.values(data.symbols))
         .catch(error => HttpClass.displayErrorHandler(error, this.$store))
-        .finally(() => this.loading = false)
+        .finally(() => this.loading = false);
   }
 }
 </script>

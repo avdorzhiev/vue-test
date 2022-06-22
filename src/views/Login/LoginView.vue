@@ -36,8 +36,8 @@
 import {Component, Vue} from 'vue-property-decorator';
 import './styles.less';
 import {RegisterFormEventEnum, IUser} from './view.login.models';
-import RegisterButton from "../../components/Login/RegisterButton.vue";
-import {loggedNameRoutesEnum} from "@/router/enums";
+import RegisterButton from '../../components/Login/RegisterButton.vue';
+import {loggedNameRoutesEnum} from '@/router/enums';
 
 
 
@@ -45,7 +45,7 @@ const ADMIN_USERNAME = 'admin';
 const ADMIN_PASSWORD = 'admin';
 
 const USER_USERNAME = 'user';
-const USER_PASSWORD = 'qwerty'
+const USER_PASSWORD = 'qwerty';
 
 const USERS: IUser[] = [
   {
@@ -58,7 +58,7 @@ const USERS: IUser[] = [
     password: USER_PASSWORD,
     id: 2
   },
-]
+];
 
 @Component({
   components: {
@@ -70,15 +70,15 @@ export default class LoginView extends Vue {
   displayProp = false;
 
   get display(): boolean {
-    return this.displayProp
+    return this.displayProp;
   }
 
   set display(event: boolean) {
     this.displayProp = event;
   }
 
-  username: string = '';
-  password: string = '';
+  username = '';
+  password = '';
   users: IUser[] = USERS;
   registerFormListeners: { [key: string]: Function } = {
     [RegisterFormEventEnum['register-new-user']]: (event: { username: string, password: string }) => {
@@ -86,7 +86,7 @@ export default class LoginView extends Vue {
         username: event.username,
         password: event.password,
         id: this.users[this.users.length - 1].id + 1,
-      })
+      });
     },
   };
 

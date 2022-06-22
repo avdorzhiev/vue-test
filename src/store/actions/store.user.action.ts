@@ -10,4 +10,4 @@ export const UserAction: ActionTree<IUserState, IState> = {
         return axios.get<UserType>('https://randomuser.me/api/')
             .then(response => response.data);
     }
-}
+};

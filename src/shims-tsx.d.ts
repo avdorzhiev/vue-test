@@ -1,4 +1,4 @@
-import Vue, {VNode} from 'vue'
+import Vue, {VNode} from 'vue';
 import {ILoginPlugin} from '@/plugins/auth.plugin';
 import {IHttpPlugin} from '@/plugins/http.plugin';
 import {Store} from 'vuex';

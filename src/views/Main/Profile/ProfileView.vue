@@ -67,7 +67,7 @@ type TUserInfo = {
 })
 export default class ProfileView extends Vue {
 
-  loading: boolean = true;
+  loading = true;
   userData: TUserInfo = {
     firstName: '',
     lastName: '',
@@ -88,21 +88,21 @@ export default class ProfileView extends Vue {
             email: info.email,
             phone: info.phone,
             avatar: info.picture.large,
-          }
+          };
         })
         .catch(error => HttpClass.displayErrorHandler(error, this.$store))
-        .finally(() => this.loading = false)
+        .finally(() => this.loading = false);
   }
 
 
   get fullName(): string {
-    return this.userData.firstName + ' ' + this.userData.lastName
+    return this.userData.firstName + ' ' + this.userData.lastName;
   }
 
   get dob(): string {
     const [year, month, day]: number[] = (this.userData.dob.split('T'))[0].split('-').map(v => Number(v));
-    const date = new Date(year, month, day)
-    return date.toLocaleString('en', {day: '2-digit', month: 'long', year: 'numeric'})
+    const date = new Date(year, month, day);
+    return date.toLocaleString('en', {day: '2-digit', month: 'long', year: 'numeric'});
   }
 }
 </script>

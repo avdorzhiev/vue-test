@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import VueRouter, {RouteConfig} from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from 'vue';
+import VueRouter, {RouteConfig} from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/Login/LoginView.vue';
 import MainView from '@/views/Main/MainView.vue';
 import {commonNameRoutesEnum, loggedNameRoutesEnum, notLoggedNameRoutesEnum} from '@/router/enums';
@@ -10,7 +10,7 @@ import {AuthService} from '@/plugins/auth.plugin';
 import CurrencyView from '@/views/Main/Currency/CurrencyView.vue';
 import RickAndMortyView from '@/views/Main/RickAndMorty/RickAndMortyView.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 type allNameRoutesType = commonNameRoutesEnum | notLoggedNameRoutesEnum | loggedNameRoutesEnum;
 
@@ -76,20 +76,20 @@ const routes: Array<myRouteConfig> = [
     name: commonNameRoutesEnum.notFound,
     component: () => import('../views/NotFoundView.vue'),
   }
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
   if (to.name === from.name || to.path === from.path) {
-    next(false)
+    next(false);
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;

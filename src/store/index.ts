@@ -1,12 +1,12 @@
-import Vue from 'vue'
-import Vuex, {Store} from 'vuex'
+import Vue from 'vue';
+import Vuex, {Store} from 'vuex';
 import {IState} from '@/store/models/store.state.models';
 import moduleErrorDialog from '@/store/modules/store.errorDialog.module';
 import {moduleUser} from '@/store/modules/store.user.module';
 import {StoreRickAndMortyModule} from '@/store/modules/store.rick-and-morty.module';
 import moduleSimpleDialog from '@/store/modules/store.simpleDialog.module';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store: Store<IState> = new Vuex.Store<IState>({
   strict: true,
@@ -32,7 +32,7 @@ const store: Store<IState> = new Vuex.Store<IState>({
     user: moduleUser,
     rickAndMorty: StoreRickAndMortyModule
   },
-})
+});
 
 store.subscribe((mutation, state) => {
   // Store the state object as a JSON string

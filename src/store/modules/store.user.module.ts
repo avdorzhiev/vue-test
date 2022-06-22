@@ -6,4 +6,4 @@ import {IUserState} from '@/store/models/store.user.models';
 export const moduleUser: Module<IUserState, IState> = {
     namespaced: true,
     actions: UserAction
-}
+};

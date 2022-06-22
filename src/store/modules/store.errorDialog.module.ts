@@ -14,10 +14,10 @@ const moduleErrorDialog: Module<IErrorDialogState, IState> = {
             return state.display;
         },
         errorCode: (state) => {
-            return state.error && state.error.code
+            return state.error && state.error.code;
         },
         errorMessage: (state) => {
-            return state.error && state.error.message
+            return state.error && state.error.message;
         }
 
     },
@@ -29,6 +29,6 @@ const moduleErrorDialog: Module<IErrorDialogState, IState> = {
             return state.error = error;
         }
     }
-}
+};
 
 export default moduleErrorDialog;
